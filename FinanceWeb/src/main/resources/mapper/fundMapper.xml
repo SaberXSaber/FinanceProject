@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsb.finance.dao.FundDao">
+
+        <sql id="query_time_where">
+                ${pg.searchTime}
+        </sql>
+
+        <sql id="query_where">
+                ${pg.sqlCondition}
+        </sql>
+
+
+        <select id="getList" parameterType="java.util.HashMap" resultType="com.gsb.finance.pojo.FundDO">
+                SELECT * from fund
+                <where>
+                        <if test="pg.sqlCondition != null and pg.sqlCondition != '' and pg.searchTime == null">
+                                <include refid="query_where"></include>
+                        </if>
+                        <if test="pg.searchTime != null and pg.searchTime != ''">
+                                and  fund.createTime <include refid="query_time_where"></include>
+                        </if>
+                        <if test="sharesCode != null and sharesCode!=''">
+                                AND fund.id IN (SELECT fundId from shares WHERE sharesCode=#{sharesCode})
+                        </if>
+                </where>
+                limit #{pg.recordStart},#{pg.recordEnd};
+        </select>
+
+        <select id="getTotal" parameterType="com.gsb.finance.pojo.PageCondition" resultType="java.lang.Integer">
+                SELECT count(*) from fund
+                <where>
+                        <if test="pg.sqlCondition != null and pg.sqlCondition != '' and pg.searchTime == null">
+                                <include refid="query_where"></include>
+                        </if>
+                        <if test="pg.searchTime != null and pg.searchTime != ''">
+                                and  fund.createTime <include refid="query_time_where"></include>
+                        </if>
+                        <if test="sharesCode != null and sharesCode!=''">
+                                AND fund.id IN (SELECT fundId from shares WHERE sharesCode=#{sharesCode})
+                        </if>
+                </where>
+                ;
+        </select>
+
+        <select id="getFundById" parameterType="java.lang.Integer" resultType="com.gsb.finance.pojo.FundDO">
+                SELECT * from fund WHERE id= #{VALUE } limit 0,1
+        </select>
+
+        <select id="getSharesByFundId" parameterType="java.lang.Integer" resultType="com.gsb.finance.pojo.SharesDO">
+                SELECT * FROM  shares WHERE fundId= #{VALUE }
+        </select>
+
+</mapper>

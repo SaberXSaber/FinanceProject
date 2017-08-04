@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsb.finance.dao.SharesDao">
+        <sql id="query_time_where">
+                ${searchTime}
+        </sql>
+
+        <sql id="query_where">
+                 ${sqlCondition}
+        </sql>
+
+
+        <select id="getList" parameterType="com.gsb.finance.pojo.PageCondition" resultType="com.gsb.finance.pojo.SharesDO">
+                SELECT * from Shares
+                <where>
+                        <if test="sqlCondition != null and sqlCondition != '' and searchTime == null">
+                                <include refid="query_where"></include>
+                        </if>
+                        <if test="searchTime != null and searchTime != ''">
+                                and  Shares.CreateTime <include refid="query_time_where"></include>
+                        </if>
+                </where>
+                 limit #{recordStart},#{recordEnd};
+        </select>
+
+        <select id="getTotal" parameterType="com.gsb.finance.pojo.PageCondition" resultType="java.lang.Integer">
+                SELECT count(*) from Shares
+                <where>
+                        <if test="sqlCondition != null and sqlCondition != '' and searchTime == null">
+                                <include refid="query_where"></include>
+                        </if>
+                        <if test="searchTime != null and searchTime != ''">
+                                and  Shares.createTime <include refid="query_time_where"></include>
+                        </if>
+                </where>
+                ;
+        </select>
+
+
+        <select id="getsharesAnalysisList" parameterType="com.gsb.finance.pojo.BuyCondition" resultType="com.gsb.finance.pojo.SharesAnalysisVO">
+
+                SELECT * FROM (
+                SELECT count(*) as buyNum,sharesName,sharesCode , sum(ratio) as totalRatio FROM shares
+                LEFT JOIN fund ON shares.fundId=fund.id
+                <where>
+                        <if test="oneMonth!=null"> AND   oneMonth>=#{oneMonth}</if>
+                        <if test="threeMonth!=null"> AND threeMonth>=#{threeMonth}</if>
+                        <if test="sixMonth!=null"> AND sixMonth>=#{sixMonth}</if>
+                        <if test="oneYear!=null"> AND oneYear>=#{oneYear}</if>
+                        <if test="threeYear!=null"> AND threeYear>=#{threeYear}</if>
+                        <if test="always!=null"> AND always>=#{always}</if>
+                </where>
+                GROUP BY shares.sharesName ,sharesCode ORDER BY buyNum DESC)
+                 as temp limit #{recordStart},#{recordEnd};
+
+        </select>
+
+        <select id="getsharesAnalysisTotal" parameterType="com.gsb.finance.pojo.BuyCondition" resultType="java.lang.Integer">
+                SELECT count(*) from (
+                 SELECT count(*) as buyNum,sharesName ,sharesCode, sum(ratio) as totalRatio FROM shares
+                LEFT JOIN fund ON shares.fundId=fund.id
+                <where>
+                        <if test="oneMonth!=null"> AND   oneMonth>=#{oneMonth}</if>
+                        <if test="threeMonth!=null"> AND threeMonth>=#{threeMonth}</if>
+                        <if test="sixMonth!=null"> AND sixMonth>=#{sixMonth}</if>
+                        <if test="oneYear!=null"> AND oneYear>=#{oneYear}</if>
+                        <if test="threeYear!=null"> AND threeYear>=#{threeYear}</if>
+                        <if test="always!=null"> AND always>=#{always}</if>
+                </where>
+                GROUP BY shares.sharesName,sharesCode
+                 ) as temp;
+        </select>
+
+        <select id="getFundBysharesCode" parameterType="java.lang.String" resultType="com.gsb.finance.pojo.FundDO">
+                SELECT * FROM fund WHERE id IN(SELECT DISTINCT fundId FROM shares WHERE shares.sharesCode=#{sharesCode}) ORDER BY fund.id ASC
+        </select>
+
+        <select id="getFundBysharesCodeTotal" parameterType="java.lang.String" resultType="java.lang.Integer">
+                SELECT count(*) FROM fund WHERE id IN(SELECT DISTINCT fundId FROM shares WHERE shares.sharesCode=#{sharesCode})
+        </select>
+</mapper>
