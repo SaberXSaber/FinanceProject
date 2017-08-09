@@ -3,8 +3,8 @@ __author__ = 'Administrator'
 
 from concurrent.futures import ThreadPoolExecutor
 import time
-from FinancePy import dbManage
-from FinancePy import shares
+from FinancePy.FinancePy import dbManage
+from FinancePy.FinancePy import shares
 
 '''
 def return_future_result(message):

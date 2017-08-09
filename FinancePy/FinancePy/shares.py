@@ -5,7 +5,7 @@ import time
 import urllib
 import urllib.request
 from bs4 import BeautifulSoup
-from FinancePy import dbManage
+from FinancePy.FinancePy import dbManage
 
 from  collections import deque
 
