@@ -50,7 +50,8 @@
                                 <input id="threeYear" name="threeYear" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
                                 <label style="height: 25px">成立来涨幅>=:</label>
                                 <input id="always" name="always" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
-                                <button data-toggle="button" class="btn btn-primary" type="button" id="btnSearch" name="btnSearch" style="float: right">查询</button>
+                                <button data-toggle="button" class="btn btn-primary" type="button" id="btnSearch" name="btnSearch" style="">查询</button>
+                                <button data-toggle="button" class="btn btn-primary" type="button" id="export" name="export" style="float: right">下载</button>
                             </div>
                     </div>
                     <%--<div>
@@ -176,6 +177,36 @@
             ParamJson = $("#test").val();
             $.extend(postData, { Param: ParamJson });*/
             $("#table_list_1").jqGrid("setGridParam", { search: true }).trigger("reloadGrid", [{ page: 1}]); //重载JQGrid
+        });
+
+        $("#export").click(function () {
+            var oneMonth = $("#oneMonth").val();
+            var threeMonth = $("#threeMonth").val();
+            var sixMonth = $("#sixMonth").val();
+            var oneYear = $("#oneYear").val();
+            var threeYear = $("#threeYear").val();
+            var always = $("#always").val();
+
+            window.open('/shares/exportReport?oneMonth='+oneMonth+'&threeMonth='+threeMonth+'&sixMonth='+sixMonth+'&oneYear='+oneYear+'&threeYear='+threeYear+'&always='+always);
+
+            /*$.ajax({
+                type: "GET",
+                url: "/shares/exportReport.htm",
+                data: {
+                    'oneMonth':oneMonth,
+                    'threeMonth':threeMonth,
+                    'sixMonth':sixMonth,
+                    'oneYear':oneYear,
+                    'threeYear':threeYear,
+                    'always':always,
+                },
+                dataType: "json",
+                success: function(data){
+                },
+                error:function(data){
+                    alert("下载失败")
+                }
+            });*/
         });
 
 

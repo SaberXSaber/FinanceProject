@@ -51,7 +51,17 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+
+    <!-- Excel 导出视图解析器-->
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location">
+            <value>classpath:spring-excel.xml</value>
+        </property>
+        <property name="order" value="0" />
+    </bean>
+
     <import resource="spring-mybatis.xml"></import>
+    <import resource="spring-excel.xml"></import>
 
 
    <!-- &lt;!&ndash; 拦截器 &ndash;&gt;

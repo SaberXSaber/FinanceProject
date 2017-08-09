@@ -22,7 +22,7 @@ import java.util.List;
  * Time: 14:24
  * Description：
  */
-public class jjson {
+public class GetFundTask {
     public static JSONObject httpPost(String url,JSONObject jsonParam){
         return httpPost(url, jsonParam, false);
     }

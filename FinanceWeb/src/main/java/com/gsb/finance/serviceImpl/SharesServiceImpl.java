@@ -13,7 +13,7 @@ import java.util.List;
  * User: guoshubo
  * Date: 2017/8/1
  * Time: 10:38
- * Description£º
+ * Descriptionï¿½ï¿½
  */
 @Service
 public class SharesServiceImpl implements SharesService {
@@ -47,5 +47,10 @@ public class SharesServiceImpl implements SharesService {
     @Override
     public int getFundBysharesCodeTotal(String sharesCode) {
         return sharesDao.getFundBysharesCodeTotal(sharesCode);
+    }
+
+    @Override
+    public List<SharesAnalysisVO> exportReport(BuyCondition buyCondition) {
+        return sharesDao.exportReport(buyCondition);
     }
 }

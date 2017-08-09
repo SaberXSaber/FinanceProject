@@ -26,6 +26,9 @@
                                 AND fund.id IN (SELECT fundId from shares WHERE sharesCode=#{sharesCode})
                         </if>
                 </where>
+                <if test="pg.sidx != null and pg.sidx !=''">
+                        ORDER BY ${pg.sidx} ${pg.sord}
+                </if>
                 limit #{pg.recordStart},#{pg.recordEnd};
         </select>
 

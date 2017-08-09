@@ -9,7 +9,7 @@ import java.util.List;
  * User: guoshubo
  * Date: 2017/8/1
  * Time: 9:30
- * Description£º
+ * Descriptionï¿½ï¿½
  */
 public interface SharesService {
     List<SharesDO> getList(PageCondition pg);
@@ -21,4 +21,6 @@ public interface SharesService {
 
     List<FundDO> getFundBysharesCode(String sharesCode);
     int getFundBysharesCodeTotal(String sharesCode);
+
+    List<SharesAnalysisVO> exportReport(BuyCondition buyCondition);
 }

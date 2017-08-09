@@ -22,6 +22,9 @@
                                 and  Shares.CreateTime <include refid="query_time_where"></include>
                         </if>
                 </where>
+                <if test="sidx != null and sidx !=''">
+                        ORDER BY ${sidx} ${sord}
+                </if>
                  limit #{recordStart},#{recordEnd};
         </select>
 
@@ -52,7 +55,11 @@
                         <if test="threeYear!=null"> AND threeYear>=#{threeYear}</if>
                         <if test="always!=null"> AND always>=#{always}</if>
                 </where>
-                GROUP BY shares.sharesName ,sharesCode ORDER BY buyNum DESC)
+                GROUP BY shares.sharesName ,sharesCode
+                <if test="sidx != null and sidx !=''">
+                        ORDER BY ${sidx} ${sord}
+                </if>
+                )
                  as temp limit #{recordStart},#{recordEnd};
 
         </select>
@@ -79,5 +86,20 @@
 
         <select id="getFundBysharesCodeTotal" parameterType="java.lang.String" resultType="java.lang.Integer">
                 SELECT count(*) FROM fund WHERE id IN(SELECT DISTINCT fundId FROM shares WHERE shares.sharesCode=#{sharesCode})
+        </select>
+
+        <select id="exportReport" parameterType="com.gsb.finance.pojo.BuyCondition" resultType="com.gsb.finance.pojo.SharesAnalysisVO">
+                SELECT count(*) as buyNum,sharesName,sharesCode , sum(ratio) as totalRatio FROM shares
+                LEFT JOIN fund ON shares.fundId=fund.id
+                <where>
+                        <if test="oneMonth!=null"> AND   oneMonth>=#{oneMonth}</if>
+                        <if test="threeMonth!=null"> AND threeMonth>=#{threeMonth}</if>
+                        <if test="sixMonth!=null"> AND sixMonth>=#{sixMonth}</if>
+                        <if test="oneYear!=null"> AND oneYear>=#{oneYear}</if>
+                        <if test="threeYear!=null"> AND threeYear>=#{threeYear}</if>
+                        <if test="always!=null"> AND always>=#{always}</if>
+                </where>
+                GROUP BY shares.sharesName ,sharesCode
+                ORDER BY buyNum DESC
         </select>
 </mapper>
