@@ -112,7 +112,7 @@
                 shrinkToFit:true,
                 rowNum:15,
                 rowList:[10,20,30],
-                colNames:["股票代码","股票名称","购买数","涨跌幅","购买此股票基金"],
+                colNames:["股票代码","股票名称","购买数","涨跌幅","股票详情","购买此股票基金"],
                 colModel:[
                     {name:"sharesCode",index:"sharesCode",editable:true,width:160},
                     {name:"sharesName",index:"sharesName",editable:true,width:160},
@@ -120,15 +120,20 @@
                     {name:"totalRatio",index:"totalRatio",sorttype:"float",editable:true,width:80,formatter:"number",formatoptions: {thousandsSeparator:",", defaulValue:"",decimalPlaces:4}},
 
                    /* {name:'Modify',index:'id', align:'center',sortable:false,width:30}*/
-
                     {
-                        label: '详情', name: '', index: 'operate', width: 60, search:false,
+                        label: '股票详情', name: '', index: 'operate', width: 45,search:false,
+                        formatter: function (cellvalue, options, rowObject) {
+                            return "<a style=color:#f60 href=http://quote.eastmoney.com/sz"+rowObject.sharesCode+"\.html\>详细</a>" }
+
+                    },
+                    {
+                        label: '购买此股票基金', name: '', index: 'operate', width: 60, search:false,
                         /*formatter: function (cellvalue, options, rowObject) {
                             return  "<a  onclick='btn_detail(\""+ rowObject.orderId + "\")'>详细</a>";
 
                         },*/
                         formatter: function (cellvalue, options, rowObject) {
-                            return "<a style=color:#f60 href=/fund/list?sharesCode="+rowObject.sharesCode+"\>详细</a>" }
+                            return "<a style=color:#f60 href=/fund/list?sharesCode="+rowObject.sharesCode+"\>查看</a>" }
                     },
                 ],
                 pager:"#pager_list_1",
