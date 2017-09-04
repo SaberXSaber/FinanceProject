@@ -25,9 +25,8 @@ nrows = table.nrows
 ncols = table.ncols
 
 sheets = nrows // limit
-print("sheets",sheets)
 
-print(table.row_values(0))
+
 
 # print str(nrows) + '   ' + str(ncols)
 
@@ -35,7 +34,9 @@ print(table.row_values(0))
 
 
 for i in range(0, sheets+1):
-    print("-----------------------------------------------")
+
+    print("第",i,"个文件")
+
     workbook = xlwt.Workbook(encoding='ascii')
 
     '''
@@ -59,7 +60,6 @@ for i in range(0, sheets+1):
 
         for row in range(1, nrows % limit):
             row_content = table.row_values(row + (i * limit))
-            print(table.row_values(row + (i * limit)))
             for col in range(0, ncols):
                 worksheet.write(row, col, row_content[col])
     else:
