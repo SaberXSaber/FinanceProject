@@ -25,14 +25,16 @@ def exeTask(url):
 
 def task(i):
     sqlstr = "select * FROM fund WHERE id="+str(i)
-    res =dbManage.get_data(sqlstr)
+    res = dbManage.dbManage.get_data(sqlstr)
+    print(res)
     if res is not None:
-        shares.parseShare(res[3],res[0])
+        return shares.parseShare(res[3],res[0])
 
-for i in range(580,674):
-    task(i)
+for i in range(0,692):
+    re=task(i)
     # 睡眠几秒,防止访问过快网站远程关闭访问
-    time.sleep(30)
+    if re ==0:
+       time.sleep(60*5)
 '''
     if i%10==0:
         time.sleep(60)

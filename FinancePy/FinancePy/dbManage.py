@@ -4,44 +4,63 @@ __author__ = 'Administrator'
 # -*- coding:utf-8 -*-
 import pymysql
 
-def get_data(sqlString):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='test', charset='utf8')
-    cursor = conn.cursor()
-    result= None
-    try:
-        cursor.execute(sqlString)
-        row_1 = cursor.fetchone()
-        result = row_1
-    except:
-        print("Error: unable to fetch data")
-    cursor.close()
-    conn.close()
-    return result
+class dbManage(object):
+
+    def __init__(self):
+        pass
 
 
+    def get_data(sqlString):
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='test', charset='utf8')
+        cursor = conn.cursor()
+        result= None
+        try:
+            cursor.execute(sqlString)
+            row_1 = cursor.fetchone()
+            result = row_1
+        except:
+            print("Error: unable to fetch data")
+        cursor.close()
+        conn.close()
+        return result
 
-def add_data(sqlString):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='test', charset='utf8')
-    cursor = conn.cursor()
-    try:
-        cursor.execute(sqlString)
-        conn.commit()
-    except:
-        conn.rollback()
-    cursor.close()
-    conn.close()
+    def add_data(sqlString):
 
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='test', charset='utf8')
+        cursor = conn.cursor()
 
-def upadte_data(sqlString):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='test', charset='utf8')
-    cursor = conn.cursor()
-    try:
         cursor.execute(sqlString)
         conn.commit()
-    except:
-        conn.rollback()
-    cursor.close()
-    conn.close()
+        cursor.close()
+        conn.close()
+        '''
+        try:
+            cursor.execute(sqlString)
+            conn.commit()
+        except:
+            conn.rollback()
+        cursor.close()
+        conn.close()
+        '''
+
+    def update_data(sqlString):
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='test', charset='utf8')
+        cursor = conn.cursor()
+        try:
+            cursor.execute(sqlString)
+            conn.commit()
+        except:
+            print("Error: unable to update data")
+            conn.rollback()
+        cursor.close()
+        conn.close()
+
+
+
+
+
+
+
 
 
 

@@ -39,10 +39,13 @@ def format(str):
 
 
 def parseShare(ur,fundId):
-    html_bytes = urllib.request.urlopen(ur).read()
-    html_string = html_bytes.decode('utf-8')
-    soup = BeautifulSoup(html_string, 'html.parser')
-
+    soup=''
+    try:
+        html_bytes = urllib.request.urlopen(ur).read()
+        html_string = html_bytes.decode('utf-8')
+        soup = BeautifulSoup(html_string, 'html.parser')
+    except:
+        return 0
     dds = soup.find(class_='dataItem01')
     spans =  dds.findAll('span')
     estimateValue = format(spans[5].getText())
@@ -73,7 +76,7 @@ def parseShare(ur,fundId):
           "sixMonth='%f',always='%f',fundScale='%d',fundManager='%s',bulidDate='%s',manager='%s',fundRating='%s' where id = '%d' "  % \
           (estimateValue,oneMonth, oneYear, unitValue, threeMonth,threeYear,cumulativeValue,sixMonth,always,fundScale,fundManager,bulidDate,manager,fundRating,fundId)
     print(sql)
-    dbManage.upadte_data(sql)
+    dbManage.dbManage.update_data(sql)
 
     tables = soup.find(class_='ui-table-hover')
     for tr in tables.findAll('tr'):
@@ -87,7 +90,8 @@ def parseShare(ur,fundId):
             createTime =time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
             sql = "INSERT INTO shares(sharesCode, sharesName, ratio, rose,fundId,createTime)  VALUES ('%s','%s','%f','%f','%d','%s')" %  (sharesCode, sharesName, ratio, rose,fundId,createTime )
             print(sql)
-            dbManage.add_data(sql)
+            dbManage.dbManage.add_data(sql)
+    return 1
 
 
 
