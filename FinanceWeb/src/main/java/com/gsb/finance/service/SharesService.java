@@ -23,4 +23,9 @@ public interface SharesService {
     int getFundBysharesCodeTotal(String sharesCode);
 
     List<SharesAnalysisVO> exportReport(BuyCondition buyCondition);
+
+    /**
+     * @return
+     */
+    int addSharesReport(BuyCondition pageConditio);
 }

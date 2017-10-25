@@ -53,4 +53,10 @@ public class SharesServiceImpl implements SharesService {
     public List<SharesAnalysisVO> exportReport(BuyCondition buyCondition) {
         return sharesDao.exportReport(buyCondition);
     }
+
+    @Override
+    public int addSharesReport(BuyCondition pageCondition) {
+        List<SharesAnalysisVO> list = getsharesAnalysisList(pageCondition);
+        return sharesDao.addsharesreportBatch(list);
+    }
 }

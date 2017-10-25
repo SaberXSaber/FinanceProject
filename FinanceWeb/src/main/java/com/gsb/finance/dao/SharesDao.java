@@ -23,4 +23,5 @@ public interface SharesDao {
     int getFundBysharesCodeTotal(String sharesCode);
     List<SharesAnalysisVO> exportReport(BuyCondition buyCondition);
 
+    int addsharesreportBatch(List<SharesAnalysisVO> list);
 }

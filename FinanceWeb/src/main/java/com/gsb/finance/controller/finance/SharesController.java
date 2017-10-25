@@ -1,4 +1,4 @@
-package com.gsb.finance.controller;
+package com.gsb.finance.controller.finance;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gsb.finance.pojo.*;
@@ -113,6 +113,11 @@ public class SharesController {
         model.addAttribute("fileName", fileName);
         model.addAttribute("columnDatas", dataList);
         return new ModelAndView("ReportStatistic", "exportReportList", exportReportList);
+    }
+
+    @RequestMapping("/result")
+    public String result(){
+        return "finace/result";
     }
 
 }

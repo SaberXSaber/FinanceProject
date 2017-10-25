@@ -74,6 +74,9 @@
             <li>
               <a class="J_menuItem" href="/shares/sharesAnalysis">股票分析</a>
             </li>
+            <li>
+              <a class="J_menuItem" href="/shares/result">结果对比</a>
+            </li>
           </ul>
         </li>
         <li>

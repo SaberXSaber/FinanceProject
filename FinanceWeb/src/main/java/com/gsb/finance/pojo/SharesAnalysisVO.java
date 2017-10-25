@@ -5,7 +5,7 @@ package com.gsb.finance.pojo;
  * User: guoshubo
  * Date: 2017/8/1
  * Time: 16:41
- * Description£º
+ * Description
  */
 public class SharesAnalysisVO {
     private String sharesName;

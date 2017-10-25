@@ -5,6 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -60,5 +63,19 @@ public class FuncUtils {
         } catch (UnsupportedEncodingException e) {
             return fileName;
         }
+    }
+
+    public Map diffList(List<String>list1,List<String>list2 ){
+        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> diffmap = new HashMap<String, Object>();
+        for (int i=0;i<list1.size();i++){
+            map.put(list1.get(i),1);
+        }
+        for(int i=0;i<list2.size();i++){
+           if(map.get(list2.get(i)) == null) {
+               diffmap.put(list2.get(i),i);
+           }
+        }
+        return diffmap;
     }
 }

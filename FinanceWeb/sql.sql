@@ -41,3 +41,13 @@ CREATE TABLE `sharestest` (
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6194 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `sharesreport` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `sharesId` int(11) NOT NULL DEFAULT '0' COMMENT '股票ID',
+  `sharesCode` varchar(50) NOT NULL,
+  `sharesName` varchar(50) NOT NULL,
+  `fundOwnedcount` int(11) NOT NULL DEFAULT '0' COMMENT '购买股票基金数',
+  `recordtime` datetime NOT NULL COMMENT '统计时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

@@ -1,4 +1,4 @@
-package com.gsb.finance.controller;
+package com.gsb.finance.controller.finance;
 
 import com.gsb.finance.pojo.FundDO;
 import com.gsb.finance.pojo.PageCondition;
@@ -20,7 +20,7 @@ import java.util.Map;
  * User: guoshubo
  * Date: 2017/8/1
  * Time: 9:29
- * Description£º
+ * Descriptionï¿½ï¿½
  */
 
 @Controller

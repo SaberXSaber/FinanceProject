@@ -1,4 +1,4 @@
-package com.gsb.finance.controller;
+package com.gsb.finance.controller.finance;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

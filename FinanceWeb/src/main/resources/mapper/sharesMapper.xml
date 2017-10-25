@@ -59,6 +59,9 @@
                 <if test="sidx != null and sidx !=''">
                         ORDER BY ${sidx} ${sord}
                 </if>
+                <if test="sidx == null or sidx ==''">
+                        ORDER BY buyNum desc
+                </if>
                 )
                  as temp limit #{recordStart},#{recordEnd};
 
@@ -102,4 +105,16 @@
                 GROUP BY shares.sharesName ,sharesCode
                 ORDER BY buyNum DESC
         </select>
+
+        <insert id="addsharesreportBatch" useGeneratedKeys="true" parameterType="java.util.List">
+                <selectKey resultType="long" keyProperty="id" order="AFTER">
+                        SELECT
+                        LAST_INSERT_ID()
+                </selectKey>
+                insert into sharesreport (sharesCode,sharesName,fundOwnedcount,recordtime)
+                values
+                <foreach collection="list" item="item" index="index" separator="," >
+                        (#{item.sharesCode},#{item.sharesName},#{item.buyNum},now())
+                </foreach>
+        </insert>
 </mapper>

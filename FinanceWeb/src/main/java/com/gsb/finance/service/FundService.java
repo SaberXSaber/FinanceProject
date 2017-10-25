@@ -11,7 +11,7 @@ import java.util.List;
  * User: guoshubo
  * Date: 2017/8/1
  * Time: 9:30
- * Description£º
+ * Description
  */
 public interface FundService {
     List<FundDO> getList(PageCondition pg, String sharesCode);
