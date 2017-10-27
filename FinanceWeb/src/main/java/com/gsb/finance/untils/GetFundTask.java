@@ -174,8 +174,9 @@ public class GetFundTask {
             Class.forName(driver);
             //1.getConnection()方法，连接MySQL数据库！！
             con = DriverManager.getConnection(url, user, password);
-            if(!con.isClosed())
+            if(!con.isClosed()) {
                 System.out.println("Succeeded connecting to the Database!");
+            }
             //2.创建statement类对象，用来执行SQL语句！！
             Statement statement = con.createStatement();
             //要执行的SQL语句

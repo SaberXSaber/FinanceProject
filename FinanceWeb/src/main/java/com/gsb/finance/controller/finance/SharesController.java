@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -116,7 +117,22 @@ public class SharesController {
     }
 
     @RequestMapping("/result")
-    public String result(){
+    public String result(ModelMap model,String time1,String time2) throws ParseException {
+//        time1 = "2017-10-25";
+//        time2 = "2017-10-27";
+        SimpleDateFormat sf =new SimpleDateFormat("YYYY-MM-dd");
+        if(StringUtils.isBlank(time1) || StringUtils.isBlank(time2)){
+            List<String> listTime = sharesServiceImpl.getTime();
+            if (listTime.size()>=2){
+                time1= listTime.get(0);
+                time2 =listTime.get(1);
+            }else {
+                time1 =sf.format(new Date());
+                time2 =time1;
+            }
+        }
+        List<Map.Entry<String, Integer>> listdiff = sharesServiceImpl.diff(time1, time2);
+        model.addAttribute("listdiff",listdiff);
         return "finace/result";
     }
 

@@ -3,10 +3,15 @@ package com.gsb.finance.serviceImpl;
 import com.gsb.finance.dao.SharesDao;
 import com.gsb.finance.pojo.*;
 import com.gsb.finance.service.SharesService;
+import com.gsb.finance.untils.FuncUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -58,5 +63,19 @@ public class SharesServiceImpl implements SharesService {
     public int addSharesReport(BuyCondition pageCondition) {
         List<SharesAnalysisVO> list = getsharesAnalysisList(pageCondition);
         return sharesDao.addsharesreportBatch(list);
+    }
+
+    @Override
+    public  List<Map.Entry<String,Integer>> diff(String time1,String time2) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        List<SharesReport> list = sharesDao.recordByTime(time1);
+        List<SharesReport> list2 = sharesDao.recordByTime(time2);
+        String flag=sdf.parse(time1).getTime()<sdf.parse(time2).getTime()?"(新增)":"(去除)";
+        return FuncUtils.diffList(list, list2,flag);
+    }
+
+    @Override
+    public List<String> getTime() {
+        return  sharesDao.getTime();
     }
 }

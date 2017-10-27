@@ -45,7 +45,7 @@
         <select id="getsharesAnalysisList" parameterType="com.gsb.finance.pojo.BuyCondition" resultType="com.gsb.finance.pojo.SharesAnalysisVO">
 
                 SELECT * FROM (
-                SELECT count(*) as buyNum,sharesName,sharesCode , sum(ratio) as totalRatio FROM shares
+                SELECT count(*) as buyNum,sharesName,sharesCode , sum(ratio)/count(*) as totalRatio FROM shares
                 LEFT JOIN fund ON shares.fundId=fund.id
                 <where>
                         <if test="oneMonth!=null"> AND   oneMonth>=#{oneMonth}</if>
@@ -117,4 +117,12 @@
                         (#{item.sharesCode},#{item.sharesName},#{item.buyNum},now())
                 </foreach>
         </insert>
+
+        <select id="recordByTime" resultType="com.gsb.finance.pojo.SharesReport" parameterType="java.lang.String">
+                SELECT sharesCode ,sharesName,fundOwnedcount FROM sharesreport WHERE recordtime LIKE  CONCAT(#{VALUE },'%')
+        </select>
+
+        <select id="getTime" resultType="java.lang.String">
+                SELECT DISTINCT recordtime FROM sharesreport ORDER BY recordtime ASC
+        </select>
 </mapper>

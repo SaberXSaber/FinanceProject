@@ -3,6 +3,7 @@ package com.gsb.finance.dao;
 import com.gsb.finance.pojo.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,4 +25,8 @@ public interface SharesDao {
     List<SharesAnalysisVO> exportReport(BuyCondition buyCondition);
 
     int addsharesreportBatch(List<SharesAnalysisVO> list);
+
+    List<SharesReport> recordByTime(String str);
+
+    List<String> getTime();
 }

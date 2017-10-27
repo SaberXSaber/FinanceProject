@@ -48,6 +48,6 @@ CREATE TABLE `sharesreport` (
   `sharesCode` varchar(50) NOT NULL,
   `sharesName` varchar(50) NOT NULL,
   `fundOwnedcount` int(11) NOT NULL DEFAULT '0' COMMENT '购买股票基金数',
-  `recordtime` datetime NOT NULL COMMENT '统计时间',
+  `recordtime` date NOT NULL COMMENT '统计时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

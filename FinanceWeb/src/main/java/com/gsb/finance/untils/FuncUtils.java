@@ -1,13 +1,12 @@
 package com.gsb.finance.untils;
 
+import com.gsb.finance.pojo.SharesReport;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -65,17 +64,33 @@ public class FuncUtils {
         }
     }
 
-    public Map diffList(List<String>list1,List<String>list2 ){
-        Map<String,Object> map = new HashMap<String, Object>();
-        Map<String,Object> diffmap = new HashMap<String, Object>();
+    public static  List<Map.Entry<String,Integer>> diffList(List<SharesReport>list1,List<SharesReport>list2,String flag ){
+        Map<String,Integer> map = new HashMap<String, Integer>();
+        Map<String,Integer> diffmap = new HashMap<String, Integer>();
         for (int i=0;i<list1.size();i++){
-            map.put(list1.get(i),1);
+            map.put(list1.get(i).getSharesCode(),list1.get(i).getFundOwnedcount());
         }
         for(int i=0;i<list2.size();i++){
-           if(map.get(list2.get(i)) == null) {
-               diffmap.put(list2.get(i),i);
+           if(map.get(list2.get(i).getSharesCode()) == null) {
+               if(list2.get(i).getFundOwnedcount()>5){
+                   diffmap.put(flag+list2.get(i).getSharesName(),list2.get(i).getFundOwnedcount());
+               }
+           }else {
+              if(Math.abs(map.get(list2.get(i).getSharesCode()) - list2.get(i).getFundOwnedcount())>5) {
+                  diffmap.put(list2.get(i).getSharesName(),list2.get(i).getFundOwnedcount()-map.get(list2.get(i).getSharesCode()));
+              }
            }
         }
-        return diffmap;
+
+        List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>((Collection<? extends Map.Entry<String, Integer>>) diffmap.entrySet());
+        Collections.sort(list,new Comparator<Map.Entry<String,Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+
+            }
+
+        });
+        return list;
     }
 }

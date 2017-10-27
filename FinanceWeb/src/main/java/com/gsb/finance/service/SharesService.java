@@ -2,7 +2,9 @@ package com.gsb.finance.service;
 
 import com.gsb.finance.pojo.*;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,4 +30,8 @@ public interface SharesService {
      * @return
      */
     int addSharesReport(BuyCondition pageConditio);
+
+    List<Map.Entry<String,Integer>> diff(String time1,String time2) throws ParseException;
+
+    List<String> getTime();
 }

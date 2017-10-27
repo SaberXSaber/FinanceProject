@@ -26,7 +26,43 @@
 </head>
 
 <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div>
+                    <label style="height: 25px">时间1:</label>
+                    <input id="time1" name="time1" type="text" style="height: 30px;text-align:center" />
+                    <label style="height: 25px">时间2:</label>
+                    <input id="time2" name="time2" type="text" style="height: 30px;text-align:center" />
+                    <button data-toggle="button" class="btn btn-primary" type="button" id="btnSearch" name="btnSearch" style="">查询</button>
+                </div>
+
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>股票名称</th>
+                        <th>变动数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${listdiff}" var="shares" >
+                        <tr class="gradeX">
+                            <td>${shares.key}</td>
+                            <td>${shares.value}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <%--<div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-sm-6">
                 <div class="ibox float-e-margins">
@@ -45,13 +81,13 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <%--<div class="echarts" id="echarts-line-chart"></div>--%>
+                        &lt;%&ndash;<div class="echarts" id="echarts-line-chart"></div>&ndash;%&gt;
                         <div id="myChart" style="height: 400px; width:750px; border: 1px solid #ccc; padding: 10px;"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
     <script src="../js/jquery.min.js?v=2.1.4"></script>
     <script src="../js/bootstrap.min.js?v=3.3.6"></script>
@@ -63,13 +99,15 @@
     <script src="../js/jDialog/jquery.dialog.js"></script>
     <script src="../js/plugins/datapicker/bootstrap-datepicker.js"></script>
    <%-- <script src="../js/plugins/echarts/echarts-all.js"></script>--%>
+<%--
     <script src="../js/plugins/echarts/echarts.common.min.js"></script>
+--%>
   <%--  <script src="../js/demo/echarts-demo.min.js"></script>--%>
 
 
     <script type="text/javascript" src="../js/stats.js" charset="UTF-8"></script>
     <script type="text/javascript">
-        var myChart = echarts.init(document.getElementById('myChart'));
+       /* var myChart = echarts.init(document.getElementById('myChart'));
         option = {
             title: {
                 text: '折线图堆叠'
@@ -94,7 +132,8 @@
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: ['周一','周二','周三','周四','周五','周六','周日']
+//                data: ['周一','周二','周三','周四','周五','周六','周日']
+                data :[]
             },
             yAxis: {
                 type: 'value'
@@ -104,35 +143,72 @@
                     name:'邮件营销',
                     type:'line',
                     stack: '总量',
-                    data:[120, 132, 101, 134, 90, 230, 210]
+//                    data:[120, 132, 101, 134, 90, 230, 210]
+                    data:[]
                 },
                 {
                     name:'联盟广告',
                     type:'line',
                     stack: '总量',
-                    data:[220, 182, 191, 234, 290, 330, 310]
+                    //                    data:[120, 132, 101, 134, 90, 230, 210]
+                    data:[]
                 },
                 {
                     name:'视频广告',
                     type:'line',
                     stack: '总量',
-                    data:[150, 232, 201, 154, 190, 330, 410]
+                    //                    data:[120, 132, 101, 134, 90, 230, 210]
+                    data:[]
                 },
                 {
                     name:'直接访问',
                     type:'line',
                     stack: '总量',
-                    data:[320, 332, 301, 334, 390, 330, 320]
+                    //                    data:[120, 132, 101, 134, 90, 230, 210]
+                    data:[]
                 },
                 {
                     name:'搜索引擎',
                     type:'line',
                     stack: '总量',
-                    data:[820, 932, 901, 934, 1290, 1330, 1320]
+                    //                    data:[120, 132, 101, 134, 90, 230, 210]
+                    data:[]
                 }
             ]
         };
-        myChart.setOption(option);
+
+        $.ajax({
+            type : "post",
+            async : true, //异步执行
+            url : "AcceptData",
+            dataType : "json", //返回数据形式为json
+            success : function(json) {
+                if (json) {
+                    fetchData(function (data) {
+                        myChart.hideLoading();
+                        myChart.setOption({
+                            xAxis:{
+                                data:json.xAxisData
+                            },
+
+                            series: json.seriesList
+
+                        });
+                    });
+                }
+            },
+            error : function(errorMsg) {
+                alert("请求数据失败");
+            }
+        });
+
+        myChart.setOption(option);*/
+
+        $("#btnSearch").click(function () {
+            var time1=document.getElementById("time1").value;
+            var time2=document.getElementById("time2").value;
+            window.location.href="/shares/result?time1="+time1+"&time2="+time2;
+        });
     </script>
 </body>
 </html>
