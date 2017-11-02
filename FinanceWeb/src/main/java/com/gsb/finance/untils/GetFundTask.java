@@ -78,7 +78,7 @@ public class GetFundTask {
      * @param url    路径
      * @return
      */
-    public static JSONObject httpGet(String url){
+    public static JSONObject httpGet(String url,int fundType){
         //get请求返回结果
         JSONObject jsonResult = null;
         try {
@@ -96,7 +96,7 @@ public class GetFundTask {
 //                jsonResult =JSONObject.parseObject(strResult);
 //                url = URLDecoder.decode(url, "UTF-8");
 
-                parseJson(strResult);
+                parseJson(strResult,fundType);
 
 
             } else {
@@ -110,13 +110,13 @@ public class GetFundTask {
         return jsonResult;
     }
 
-    public static void parseJson(String str){
+    public static void parseJson(String str ,int fundType){
         String json_str=str.split("=")[1];
         JSONObject jsonResult =JSONObject.parseObject(json_str);
 //        System.out.println(jsonResult.get("datas"));
         List<List<Object>> listA= (List<List<Object>>) jsonResult.get("datas");
         try {
-            db(listA);
+            db(listA,fundType);
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("error");
@@ -155,7 +155,7 @@ public class GetFundTask {
     }
 
 
-    public static void db(List<List<Object>> listA) throws SQLException {
+    public static void db(List<List<Object>> listA,int fundType) throws SQLException {
         Connection con = null;
         String driver = "com.mysql.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8";
@@ -168,7 +168,7 @@ public class GetFundTask {
         java.util.Date date =new java.util.Date();
         SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String baseurl="http://fund.eastmoney.com/";
-        String sql = "insert into fund (fundCode,fundName,detailedUrl,dailyValue,dailyRate,applyState,redeemState,poundage,createTime) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into fund (fundCode,fundName,detailedUrl,dailyValue,dailyRate,applyState,redeemState,poundage,createTime,fundType) values(?,?,?,?,?,?,?,?,?,?)";
 
         try {
             Class.forName(driver);
@@ -204,6 +204,7 @@ public class GetFundTask {
                 pstmt.setString(7, list.get(10).toString());
                 pstmt.setString(8, list.get(17).toString());
                 pstmt.setString(9, dateFormater.format(date));
+                pstmt.setString(10,String.valueOf(fundType));
                 System.out.println(pstmt.toString());
                 int i = pstmt.executeUpdate();
             }
@@ -243,8 +244,16 @@ public class GetFundTask {
 
         System.out.println(listB);*/
 
-        String url="http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx?t=1&lx=2&letter=&gsid=&text=&sort=zdf,desc&page=1,700&dt=1500969535491&atfc=&onlySale=0";
-        httpGet(url);
+        int fundType =1;
+        //股票型基金
+        String url="http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx?t=1&lx="+fundType+"&letter=&gsid=&text=&sort=zdf,desc&page=1,5000&dt=1500969535491&atfc=&onlySale=0";
+        httpGet(url,fundType);
+
+
+        //混合型基金
+        fundType +=1;
+        url="http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx?t=1&lx="+fundType+"&letter=&gsid=&text=&sort=zdf,desc&page=1,5000&dt=1500969535491&atfc=&onlySale=0";
+        httpGet(url,fundType);
 
     }
 }

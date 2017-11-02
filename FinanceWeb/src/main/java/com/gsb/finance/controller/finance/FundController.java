@@ -1,9 +1,12 @@
 package com.gsb.finance.controller.finance;
 
+import com.gsb.finance.pojo.BuyCondition;
 import com.gsb.finance.pojo.FundDO;
 import com.gsb.finance.pojo.PageCondition;
 import com.gsb.finance.pojo.SharesDO;
 import com.gsb.finance.service.FundService;
+import com.gsb.finance.untils.ConstantParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +31,7 @@ import java.util.Map;
 public class FundController {
 
     @Resource
-    private FundService FundServiceImpl;
+    private FundService fundServiceImpl;
 
     @RequestMapping("/list")
     public String list(String sharesCode,ModelMap model){
@@ -40,8 +43,8 @@ public class FundController {
     @ResponseBody
     public Map list(PageCondition pageCondition,String sharesCode){
         Map reslut = new HashMap();
-        List<FundDO> listPages =FundServiceImpl.getList(pageCondition,sharesCode);
-        int recordTotal = FundServiceImpl.getTotal(pageCondition,sharesCode);
+        List<FundDO> listPages =fundServiceImpl.getList(pageCondition,sharesCode);
+        int recordTotal = fundServiceImpl.getTotal(pageCondition,sharesCode);
         pageCondition.setRecordTotal(recordTotal);
         reslut.put("total", pageCondition.getTotal());
         reslut.put("rows", listPages);
@@ -50,10 +53,24 @@ public class FundController {
 
     @RequestMapping(value="/funddetial",method = RequestMethod.GET)
     public String userorderdetial(ModelMap model,Integer fundId){
-        FundDO fundDO = FundServiceImpl.getFundById(fundId);
-        List<SharesDO> listShares = FundServiceImpl.getSharesByFundId(fundId);
+        FundDO fundDO = fundServiceImpl.getFundById(fundId);
+        List<SharesDO> listShares = fundServiceImpl.getSharesByFundId(fundId);
         model.addAttribute("fundDO",fundDO);
         model.addAttribute("listShares",listShares);
         return "finace/fundDetail";
+    }
+
+    @RequestMapping("/fundresult")
+    public String result(Integer start,Integer endnum ,ModelMap model)  {
+        BuyCondition pageCondition = new BuyCondition();
+        if(null != endnum){
+            pageCondition.setRecordEnd(endnum);
+        }else {
+            pageCondition.setRecordEnd(ConstantParam.PAGE_END_NUM);
+        }
+        List<Map.Entry<String,Integer>> map = fundServiceImpl.topfund(pageCondition);
+//        List<Map.Entry<String, Integer>> listdiff  = new ArrayList<Map.Entry<String, Integer>>((Collection<? extends Map.Entry<String, Integer>>) map);
+        model.addAttribute("listdiff",map);
+        return "finace/fundresult";
     }
 }

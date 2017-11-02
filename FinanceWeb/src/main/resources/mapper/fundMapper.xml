@@ -56,4 +56,8 @@
                 SELECT * FROM  shares WHERE fundId= #{VALUE }
         </select>
 
+        <select id="getSharesCodeByFundId" parameterType="java.lang.Integer" resultType="java.lang.String">
+                 SELECT sharesCode FROM  shares WHERE fundId= #{VALUE }
+        </select>
+
 </mapper>

@@ -75,7 +75,10 @@
               <a class="J_menuItem" href="/shares/sharesAnalysis">股票分析</a>
             </li>
             <li>
-              <a class="J_menuItem" href="/shares/result">结果对比</a>
+              <a class="J_menuItem" href="/shares/result">股票变化</a>
+            </li>
+            <li>
+              <a class="J_menuItem" href="/fund/fundresult">基金分析</a>
             </li>
           </ul>
         </li>

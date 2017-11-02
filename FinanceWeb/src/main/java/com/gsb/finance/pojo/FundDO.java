@@ -38,6 +38,16 @@ public class FundDO implements Serializable{
     private String bulidDate;
     private String createTime;
 
+    public int getFundType() {
+        return fundType;
+    }
+
+    public void setFundType(int fundType) {
+        this.fundType = fundType;
+    }
+
+    private  int fundType;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -252,6 +262,7 @@ public class FundDO implements Serializable{
                 ", oneYear=" + oneYear +
                 ", threeYear=" + threeYear +
                 ", always=" + always +
+                ", fundType=" + fundType +
                 ", fundScale=" + fundScale +
                 ", fundManager='" + fundManager + '\'' +
                 ", manager='" + manager + '\'' +

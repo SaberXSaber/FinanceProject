@@ -20,4 +20,6 @@ public interface FundDao {
     FundDO getFundById(Integer fundId);
 
     List<SharesDO> getSharesByFundId(Integer fundId);
+
+    List<String> getSharesCodeByFundId(int id);
 }

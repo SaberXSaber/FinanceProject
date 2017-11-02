@@ -17,12 +17,12 @@ import java.util.Date;
  * Description：
  */
 public class BuyCondition extends PageCondition{
-    private Double oneMonth;
-    private Double threeMonth;
-    private Double sixMonth;
-    private Double oneYear;
-    private Double threeYear;
-    private Double always;
+    private Double oneMonth =0.0;
+    private Double threeMonth=0.0;
+    private Double sixMonth=5.0;
+    private Double oneYear=10.0;
+    private Double threeYear=15.0;
+    private Double always = 20.0;
 
     public Double getThreeYear() {
         return threeYear;

@@ -125,4 +125,27 @@
         <select id="getTime" resultType="java.lang.String">
                 SELECT DISTINCT recordtime FROM sharesreport ORDER BY recordtime ASC
         </select>
+
+        <select id="getTopShares" parameterType="com.gsb.finance.pojo.BuyCondition" resultType="java.lang.String">
+                SELECT sharesCode FROM (
+                SELECT count(*) as buyNum,sharesName,sharesCode , sum(ratio)/count(*) as totalRatio FROM shares
+                LEFT JOIN fund ON shares.fundId=fund.id
+                <where>
+                        <if test="oneMonth!=null"> AND   oneMonth>=#{oneMonth}</if>
+                        <if test="threeMonth!=null"> AND threeMonth>=#{threeMonth}</if>
+                        <if test="sixMonth!=null"> AND sixMonth>=#{sixMonth}</if>
+                        <if test="oneYear!=null"> AND oneYear>=#{oneYear}</if>
+                        <if test="threeYear!=null"> AND threeYear>=#{threeYear}</if>
+                        <if test="always!=null"> AND always>=#{always}</if>
+                </where>
+                GROUP BY shares.sharesName ,sharesCode
+                <if test="sidx != null and sidx !=''">
+                        ORDER BY ${sidx} ${sord}
+                </if>
+                <if test="sidx == null or sidx ==''">
+                        ORDER BY buyNum desc
+                </if>
+                )
+                as temp limit #{recordStart},#{recordEnd};
+        </select>
 </mapper>

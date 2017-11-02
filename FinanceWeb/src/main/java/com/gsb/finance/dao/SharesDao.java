@@ -29,4 +29,6 @@ public interface SharesDao {
     List<SharesReport> recordByTime(String str);
 
     List<String> getTime();
+
+    List<String> getTopShares(BuyCondition pageCondition);
 }
