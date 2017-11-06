@@ -23,7 +23,8 @@ CREATE TABLE `fund` (
   `redeemState` varchar(50) DEFAULT NULL COMMENT '赎回状态',
   `bulidDate` datetime DEFAULT NULL COMMENT '成立日',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fundCode` (`fundCode`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
