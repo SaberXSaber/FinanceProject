@@ -2,10 +2,7 @@ package com.gsb.finance.serviceImpl;
 
 import com.gsb.finance.dao.FundDao;
 import com.gsb.finance.dao.SharesDao;
-import com.gsb.finance.pojo.BuyCondition;
-import com.gsb.finance.pojo.FundDO;
-import com.gsb.finance.pojo.PageCondition;
-import com.gsb.finance.pojo.SharesDO;
+import com.gsb.finance.pojo.*;
 import com.gsb.finance.service.FundService;
 import com.gsb.finance.untils.ConstantParam;
 import org.slf4j.LoggerFactory;
@@ -33,19 +30,13 @@ public class FundServiceImpl implements FundService {
     private SharesDao sharesDao;
 
     @Override
-    public List<FundDO> getList(PageCondition pg,String sharesCode) {
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("pg",pg);
-        map.put("sharesCode",sharesCode);
-        return fundDao.getList(map);
+    public List<FundDO> getList(FundCondition pg) {
+        return fundDao.getList(pg);
     }
 
     @Override
-    public int getTotal(PageCondition pg,String sharesCode) {
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("pg",pg);
-        map.put("sharesCode",sharesCode);
-        return fundDao.getTotal(map);
+    public int getTotal(FundCondition pg) {
+        return fundDao.getTotal(pg);
     }
 
     @Override
@@ -62,10 +53,9 @@ public class FundServiceImpl implements FundService {
     public  List<Map.Entry<String,Integer>> topfund(BuyCondition pg) {
         Map sortMap = new TreeMap();
         Map<String,Object> map = new HashMap<String,Object>();
-        PageCondition pag =new PageCondition();
+        FundCondition pag =new FundCondition();
         pag.setRecordEnd(ConstantParam.PAGE_END_NUM);
-        map.put("pg",pag);
-        List<FundDO> fundLists=fundDao.getList(map);
+        List<FundDO> fundLists=fundDao.getList(pag);
         List<String> topList = sharesDao.getTopShares(pg);
         for(FundDO f:fundLists){
             List<String> listShare = fundDao.getSharesCodeByFundId(f.getId());

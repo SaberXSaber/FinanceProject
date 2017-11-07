@@ -5,44 +5,54 @@
 <mapper namespace="com.gsb.finance.dao.FundDao">
 
         <sql id="query_time_where">
-                ${pg.searchTime}
+                ${searchTime}
         </sql>
 
         <sql id="query_where">
-                ${pg.sqlCondition}
+                ${sqlCondition}
         </sql>
 
 
-        <select id="getList" parameterType="java.util.HashMap" resultType="com.gsb.finance.pojo.FundDO">
+        <select id="getList" parameterType="com.gsb.finance.pojo.FundCondition" resultType="com.gsb.finance.pojo.FundDO">
                 SELECT * from fund
                 <where>
-                        <if test="pg.sqlCondition != null and pg.sqlCondition != '' and pg.searchTime == null">
+                        <if test="sqlCondition != null and sqlCondition != '' and searchTime == null">
                                 <include refid="query_where"></include>
                         </if>
-                        <if test="pg.searchTime != null and pg.searchTime != ''">
+                        <if test="searchTime != null and searchTime != ''">
                                 and  fund.createTime <include refid="query_time_where"></include>
                         </if>
-                        <if test="sharesCode != null and sharesCode!=''">
-                                AND fund.id IN (SELECT fundId from shares WHERE sharesCode=#{sharesCode})
+                        <if test="sharesCodeList != null  and sharesCodeList.size()>0">
+                                AND fund.id IN
+                                (
+                                SELECT fundId from shares WHERE sharesCode IN
+                                <foreach item="item" index="index" collection="sharesCodeList" open="(" separator="," close=")">
+                                        #{item}
+                                </foreach>
+                              )
                         </if>
                 </where>
-                <if test="pg.sidx != null and pg.sidx !=''">
-                        ORDER BY ${pg.sidx} ${pg.sord}
+                <if test="sidx != null and sidx !=''">
+                        ORDER BY ${sidx} ${sord}
                 </if>
-                limit #{pg.recordStart},#{pg.recordEnd};
+                limit #{recordStart},#{recordEnd};
         </select>
 
-        <select id="getTotal" parameterType="com.gsb.finance.pojo.PageCondition" resultType="java.lang.Integer">
+        <select id="getTotal" parameterType="com.gsb.finance.pojo.FundCondition" resultType="java.lang.Integer">
                 SELECT count(*) from fund
                 <where>
-                        <if test="pg.sqlCondition != null and pg.sqlCondition != '' and pg.searchTime == null">
+                        <if test="sqlCondition != null and sqlCondition != '' and searchTime == null">
                                 <include refid="query_where"></include>
                         </if>
-                        <if test="pg.searchTime != null and pg.searchTime != ''">
+                        <if test="searchTime != null and searchTime != ''">
                                 and  fund.createTime <include refid="query_time_where"></include>
                         </if>
-                        <if test="sharesCode != null and sharesCode!=''">
-                                AND fund.id IN (SELECT fundId from shares WHERE sharesCode=#{sharesCode})
+                        <if test="sharesCodeList != null and sharesCodeList.size()>0 ">
+                                AND fund.id IN (SELECT fundId from shares WHERE sharesCode IN
+                                <foreach item="item" index="index" collection="sharesCodeList" open="(" separator="," close=")">
+                                        #{item}
+                                </foreach>
+                                )
                         </if>
                 </where>
                 ;

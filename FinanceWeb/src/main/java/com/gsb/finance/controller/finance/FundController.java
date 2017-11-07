@@ -1,9 +1,6 @@
 package com.gsb.finance.controller.finance;
 
-import com.gsb.finance.pojo.BuyCondition;
-import com.gsb.finance.pojo.FundDO;
-import com.gsb.finance.pojo.PageCondition;
-import com.gsb.finance.pojo.SharesDO;
+import com.gsb.finance.pojo.*;
 import com.gsb.finance.service.FundService;
 import com.gsb.finance.untils.ConstantParam;
 import org.apache.commons.lang3.StringUtils;
@@ -41,12 +38,12 @@ public class FundController {
 
     @RequestMapping(value = "/funddata")
     @ResponseBody
-    public Map list(PageCondition pageCondition,String sharesCode){
+    public Map list(FundCondition fundCondition){
         Map reslut = new HashMap();
-        List<FundDO> listPages =fundServiceImpl.getList(pageCondition,sharesCode);
-        int recordTotal = fundServiceImpl.getTotal(pageCondition,sharesCode);
-        pageCondition.setRecordTotal(recordTotal);
-        reslut.put("total", pageCondition.getTotal());
+        List<FundDO> listPages =fundServiceImpl.getList(fundCondition);
+        int recordTotal = fundServiceImpl.getTotal(fundCondition);
+        fundCondition.setRecordTotal(recordTotal);
+        reslut.put("total", fundCondition.getTotal());
         reslut.put("rows", listPages);
         return reslut;
     }

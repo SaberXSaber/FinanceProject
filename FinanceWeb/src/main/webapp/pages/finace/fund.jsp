@@ -32,33 +32,67 @@
 
 <body class="gray-bg">
     <div class="wrapper wrapper-content  animated fadeInRight">
+        <form class="form-inline" role="form" >
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票一:</label>
+                <input id="share1" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票二:</label>
+                <input id="share2" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票三:</label>
+                <input id="share3" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票四:</label>
+                <input id="share4" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票五:</label>
+                <input id="share5" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票六:</label>
+                <input id="share6" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票七:</label>
+                <input id="share7" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票八:</label>
+                <input id="share8" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票九:</label>
+                <input id="share9" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <div class="form-group" style="width: 18%">
+                <label class="form-label">股票十:</label>
+                <input id="share10" type="number" placeholder="请输入股票代码" class="form-control">
+            </div>
+            <button data-toggle="button" class="btn btn-primary" type="button" id="btnSearch" name="btnSearch" style="">查询</button>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5>
-                            <%--基金--%>
                             <c:choose>
                                 <c:when test="${sharesCode != null && sharesCode !=''}">
                                     购买${sharesCode}基金
                                 </c:when>
                                 <c:otherwise>
-                                   全部股票基金
+                                   全部基金
                                 </c:otherwise>
                             </c:choose>
                         </h5>
                     </div>
                     <input type="hidden" id="sharesValue" id="sharesValue" value="${sharesCode}">
-                   <%-- <div class="form-group">
-                        <label style="width:50px;float:left;">密码：</label>
-                        <div style="float:left;">
-                            <input type="password" placeholder="密码" class="form-control" width="50">
-                        </div>
-                    </div>--%>
+
                     <div class="ibox-content">
-
-                       <%-- <h4 class="m-t">高级用法</h4>--%>
-
                         <div class="jqGrid_wrapper">
                             <table id="table_list_1"></table>
                             <div id="pager_list_1"></div>
@@ -94,7 +128,16 @@
                     if (postData.searchField === undefined) postData.searchField = null;
                     if (postData.searchString === undefined) postData.searchString = null;
                     if (postData.searchOper === undefined) postData.searchOper = null;
-                    postData.sharesCode=$("#sharesValue").val();
+                    postData.sharesCode1=$("#share1").val();
+                    postData.sharesCode2=$("#share2").val();
+                    postData.sharesCode3=$("#share3").val();
+                    postData.sharesCode4=$("#share4").val();
+                    postData.sharesCode5=$("#share5").val();
+                    postData.sharesCode6=$("#share6").val();
+                    postData.sharesCode7=$("#share7").val();
+                    postData.sharesCode8=$("#share8").val();
+                    postData.sharesCode9=$("#share9").val();
+                    postData.sharesCode10=$("#share10").val();
                     return postData;
                 },
                 datatype:"json",
@@ -236,6 +279,10 @@
             window.open('../fund/funddetial?fundId='+id,'详情','height=710,width=940,resizable=no,location=no');
 //            }
         }
+
+        $("#btnSearch").click(function () {
+            $("#table_list_1").jqGrid("setGridParam", { search: true }).trigger("reloadGrid", [{ page: 1}]);
+        });
 
     </script>
     <script type="text/javascript" src="../js/stats.js" charset="UTF-8"></script>

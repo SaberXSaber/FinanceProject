@@ -37,22 +37,22 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <%--<h5>投注记录</h5>--%>
-                            <div>
-                                <label style="height: 25px">1月涨幅>=:</label>
-                                <input id="oneMonth" name="oneMonth" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
-                                <label style="height: 25px">3月涨幅>=:</label>
-                                <input id="threeMonth" name="threeMonth" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
-                                <label style="height: 25px">6月涨幅>=:</label>
-                                <input id="sixMonth" name="sixMonth" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
-                                <label style="height: 25px">1年涨幅>=:</label>
-                                <input id="oneYear" name="oneYear" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
-                                <label style="height: 25px">3年涨幅>=:</label>
-                                <input id="threeYear" name="threeYear" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
-                                <label style="height: 25px">成立来涨幅>=:</label>
-                                <input id="always" name="always" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
-                                <button data-toggle="button" class="btn btn-primary" type="button" id="btnSearch" name="btnSearch" style="">查询</button>
-                                <button data-toggle="button" class="btn btn-primary" type="button" id="export" name="export" style="float: right">下载</button>
-                            </div>
+                        <div>
+                            <label style="height: 25px">1月涨幅>=:</label>
+                            <input id="oneMonth" name="oneMonth" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
+                            <label style="height: 25px">3月涨幅>=:</label>
+                            <input id="threeMonth" name="threeMonth" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
+                            <label style="height: 25px">6月涨幅>=:</label>
+                            <input id="sixMonth" name="sixMonth" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
+                            <label style="height: 25px">1年涨幅>=:</label>
+                            <input id="oneYear" name="oneYear" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
+                            <label style="height: 25px">3年涨幅>=:</label>
+                            <input id="threeYear" name="threeYear" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
+                            <label style="height: 25px">成立来涨幅>=:</label>
+                            <input id="always" name="always" type="text" style="height: 30px;text-align:center" onkeyup="value=value.replace(/[^\-?\d.]/g,'')"/>
+                            <button data-toggle="button" class="btn btn-primary" type="button" id="btnSearch" name="btnSearch" style="">查询</button>
+                            <button data-toggle="button" class="btn btn-primary" type="button" id="export" name="export" style="float: right">下载</button>
+                        </div>
                     </div>
                     <%--<div>
                         <label style="height: 25px">1月:</label>

@@ -1,9 +1,6 @@
 package com.gsb.finance.service;
 
-import com.gsb.finance.pojo.BuyCondition;
-import com.gsb.finance.pojo.FundDO;
-import com.gsb.finance.pojo.PageCondition;
-import com.gsb.finance.pojo.SharesDO;
+import com.gsb.finance.pojo.*;
 
 import java.util.List;
 import java.util.Map;
@@ -16,8 +13,8 @@ import java.util.Map;
  * Description
  */
 public interface FundService {
-    List<FundDO> getList(PageCondition pg, String sharesCode);
-    int getTotal(PageCondition pg, String sharesCode);
+    List<FundDO> getList(FundCondition pg);
+    int getTotal(FundCondition pg);
 
     FundDO getFundById(Integer fundId);
 
