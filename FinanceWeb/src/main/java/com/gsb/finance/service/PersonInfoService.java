@@ -2,6 +2,7 @@ package com.gsb.finance.service;
 
 import com.gsb.finance.pojo.PageCondition;
 import com.gsb.finance.pojo.SharesDO;
+import com.gsb.finance.pojo.UserBean;
 import com.gsb.finance.pojo.Youkong;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface PersonInfoService {
     List<SharesDO> getList_kf(PageCondition pageCondition);
 
     int getTotal_kf(PageCondition pageCondition);
+
+    int addTest(UserBean userBean);
 }

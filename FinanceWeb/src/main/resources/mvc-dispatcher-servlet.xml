@@ -37,12 +37,27 @@
 
 
 
-    <mvc:default-servlet-handler/>
+   <!-- <mvc:default-servlet-handler/>
     <mvc:resources mapping="/js/**" location="/statics/js/" />
     <mvc:resources mapping="/img/**" location="/statics/img/" />
     <mvc:resources mapping="/css/**" location="/statics/css/" />
     <mvc:resources mapping="/fonts/**" location="/statics/fonts/" />
-    <mvc:resources mapping="/*.html" location="/statics/" />
+    <mvc:resources mapping="/*.html" location="/statics/" />-->
+
+
+
+    <mvc:annotation-driven />
+    <mvc:default-servlet-handler/>
+    <mvc:resources mapping="/static/js/**" location="/static/js/" />
+    <mvc:resources mapping="/static/img/**" location="/static/img/" />
+    <mvc:resources mapping="/static/bus/**" location="/static/bus/" />
+    <mvc:resources mapping="/static/css/**" location="/static/css/" />
+    <mvc:resources mapping="/static/fonts/**" location="/static/fonts/" />
+    <mvc:resources mapping="/static/font/**" location="/static/font/" />
+    <mvc:resources mapping="/static/plugins/**" location="/static/plugins/" />
+    <mvc:resources mapping="/static/api/**" location="/static/api/" />
+    <mvc:resources mapping="/*.html" location="/view/" />
+    <mvc:resources mapping="/finance/*.html" location="/view/finance/" />
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -52,16 +67,19 @@
     </bean>
 
 
+
+    <import resource="spring-mybatis.xml"></import>
+    <import resource="spring-excel.xml"></import>
+
     <!-- Excel 导出视图解析器-->
-    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+   <!-- <bean class="org.springframework.web.servlet.view.XmlViewResolver">
         <property name="location">
             <value>classpath:spring-excel.xml</value>
         </property>
         <property name="order" value="0" />
-    </bean>
+    </bean>-->
 
-    <import resource="spring-mybatis.xml"></import>
-    <import resource="spring-excel.xml"></import>
+
 
 
    <!-- &lt;!&ndash; 拦截器 &ndash;&gt;

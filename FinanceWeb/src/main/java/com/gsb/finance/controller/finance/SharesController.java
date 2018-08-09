@@ -136,4 +136,29 @@ public class SharesController {
         return "finace/result";
     }
 
+
+    @RequestMapping("/shareslist")
+    @ResponseBody
+    public ResultBeanPage<List<SharesDO>> shareslist(@RequestBody SharesVO sharesVO)  {
+        FundCondition fundCondition =new FundCondition();
+        fundCondition.setRecordStart(sharesVO.getPageBean().getPage());
+        fundCondition.setRecordEnd(sharesVO.getPageBean().getLimit());
+        List<SharesDO> listPages =sharesServiceImpl.getList(fundCondition);
+        int recordTotal = sharesServiceImpl.getTotal(fundCondition);
+        fundCondition.setRecordTotal(recordTotal);
+        return new ResultBeanPage<List<SharesDO>>(listPages,fundCondition.getTotal());
+
+    }
+
+    @RequestMapping("/sharesAnalysisdatalist")
+    @ResponseBody
+    public ResultBeanPage<List<SharesDO>> sharesAnalysisdatalist(@RequestBody BuyCondition buyCondition)  {
+
+        buyCondition.setRecordStart(buyCondition.getPageBean().getPage());
+        buyCondition.setRecordEnd(buyCondition.getPageBean().getLimit());
+        List<SharesAnalysisVO> listPages =sharesServiceImpl.getsharesAnalysisList(buyCondition);
+        int recordTotal = sharesServiceImpl.getsharesAnalysisTotal(buyCondition);
+        return new ResultBeanPage<List<SharesDO>>(listPages,recordTotal);
+
+    }
 }

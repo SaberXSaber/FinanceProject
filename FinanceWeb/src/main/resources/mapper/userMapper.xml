@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsb.finance.dao.UserDao">
+
+    <insert id="addUser" parameterType="com.gsb.finance.pojo.UserBean">
+        INSERT INTO user (email,nick_name,pass_word,reg_time,user_name) VALUES (#{email},#{nick_name},#{pass_word},now(),#{user_name})
+    </insert>
+
+    <insert id="updateUser" parameterType="com.gsb.finance.pojo.UserBean">
+      UPDATE user SET nick_name = '123TT' WHERE id =2
+    </insert>
+
+</mapper>

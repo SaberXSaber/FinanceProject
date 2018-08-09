@@ -6,6 +6,7 @@ import com.gsb.finance.untils.ConstantParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,5 +70,20 @@ public class FundController {
 //        List<Map.Entry<String, Integer>> listdiff  = new ArrayList<Map.Entry<String, Integer>>((Collection<? extends Map.Entry<String, Integer>>) map);
         model.addAttribute("listdiff",map);
         return "finace/fundresult";
+    }
+
+
+
+    @RequestMapping("/fundlist")
+    @ResponseBody
+    public ResultBeanPage<List<FundDO>> fundlist(@RequestBody FundVO fundVO)  {
+        FundCondition fundCondition =new FundCondition();
+        fundCondition.setRecordStart(fundVO.getPageBean().getPage());
+        fundCondition.setRecordEnd(fundVO.getPageBean().getLimit());
+        List<FundDO> listPages =fundServiceImpl.getList(fundCondition);
+        int recordTotal = fundServiceImpl.getTotal(fundCondition);
+        fundCondition.setRecordTotal(recordTotal);
+        return new ResultBeanPage<List<FundDO>>(listPages,fundCondition.getTotal());
+
     }
 }

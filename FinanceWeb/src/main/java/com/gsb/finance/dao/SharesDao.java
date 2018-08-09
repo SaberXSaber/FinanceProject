@@ -31,4 +31,6 @@ public interface SharesDao {
     List<String> getTime();
 
     List<String> getTopShares(BuyCondition pageCondition);
+
+    int updateTest(int value);
 }

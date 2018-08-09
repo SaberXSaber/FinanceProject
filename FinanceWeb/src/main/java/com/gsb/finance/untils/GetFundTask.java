@@ -206,7 +206,13 @@ public class GetFundTask {
                 pstmt.setString(9, dateFormater.format(date));
                 pstmt.setString(10,String.valueOf(fundType));
                 System.out.println(pstmt.toString());
-                int i = pstmt.executeUpdate();
+
+                try{
+                    int i = pstmt.executeUpdate();
+                }catch (Exception e){
+                    System.out.println(list.get(0).toString()+"  "+list.get(1).toString());
+                }
+
             }
 
             /*String sql ="";
@@ -244,14 +250,14 @@ public class GetFundTask {
 
         System.out.println(listB);*/
 
-        int fundType =1;
+        int fundType =2;
         //股票型基金
         String url="http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx?t=1&lx="+fundType+"&letter=&gsid=&text=&sort=zdf,desc&page=1,5000&dt=1500969535491&atfc=&onlySale=0";
         httpGet(url,fundType);
 
 
         //混合型基金
-        fundType +=1;
+        fundType =3;
         url="http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx?t=1&lx="+fundType+"&letter=&gsid=&text=&sort=zdf,desc&page=1,5000&dt=1500969535491&atfc=&onlySale=0";
         httpGet(url,fundType);
 

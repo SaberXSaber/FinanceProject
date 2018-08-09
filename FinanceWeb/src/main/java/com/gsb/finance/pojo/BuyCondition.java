@@ -17,12 +17,12 @@ import java.util.Date;
  * Description：
  */
 public class BuyCondition extends PageCondition{
-    private Double oneMonth =0.0;
-    private Double threeMonth=0.0;
-    private Double sixMonth=5.0;
-    private Double oneYear=10.0;
-    private Double threeYear=15.0;
-    private Double always = 20.0;
+    private Double oneMonth ;
+    private Double threeMonth;
+    private Double sixMonth;
+    private Double oneYear;
+    private Double threeYear;
+    private Double always ;
 
     public Double getThreeYear() {
         return threeYear;
@@ -71,4 +71,14 @@ public class BuyCondition extends PageCondition{
     public void setAlways(Double always) {
         this.always = always;
     }
+
+    public PageBean getPageBean() {
+        return pageBean;
+    }
+
+    public void setPageBean(PageBean pageBean) {
+        this.pageBean = pageBean;
+    }
+
+    private PageBean pageBean;
 }

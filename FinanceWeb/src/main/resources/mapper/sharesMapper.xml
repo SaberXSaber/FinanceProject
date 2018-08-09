@@ -148,4 +148,8 @@
                 )
                 as temp limit #{recordStart},#{recordEnd};
         </select>
+
+        <update id="updateTest" parameterType="java.lang.Integer">
+                UPDATE shares SET latestPrice = 200 WHERE id=#{VALUE }
+        </update>
 </mapper>
