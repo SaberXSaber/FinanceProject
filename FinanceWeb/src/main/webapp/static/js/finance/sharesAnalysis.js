@@ -12,7 +12,7 @@ var BaseJs = {};
         var mmg=null;
 
         var cols =  [
-            {
+            /*{
                 title: '操作',
                 name: 'operation',
                 lockWidth:true,
@@ -35,7 +35,7 @@ var BaseJs = {};
                     return html;
                 },
 
-            },
+            },*/
 
             /*{
                 title: 'Id',
