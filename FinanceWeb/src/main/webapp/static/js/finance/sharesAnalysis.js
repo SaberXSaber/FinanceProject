@@ -66,11 +66,16 @@ var BaseJs = {};
                 name: 'totalRatio',
                 width: 60
             },
-            /*{
-                title: '股票详情',
+            {
+                title: '走势图',
                 name: 'totalRatio',
-                width: 60
-            },*/
+                width: 60,
+                renderer:function (val,item) {
+                    var html ="";
+                    html += "<a title='走势图' class='render_a' ><span class='fa fa-line-chart' aria-hidden='true' name='report'></span></a>"
+                    return html;
+                },
+            },
            /* {
                 title: '购买此股票基金',
                 name: 'totalRatio',
@@ -200,7 +205,7 @@ var BaseJs = {};
                         type: 2,
                         title: "添加",
                         shade: 0.8,
-                        area: ["760px", "650px"],
+                        area: ["90%", "80%"],
                         content: './fundadd.html',
                         end:function (){
                         }
@@ -304,13 +309,13 @@ var BaseJs = {};
 
         mmg.on('cellSelected', function(e, item, rowIndex, colIndex){
             var ele = $(e.target);
-            if(ele.is('span[name="edit"]')){
+            if(ele.is('span[name="report"]')){
                 layer.open({
                     type: 2,
                     title: "修改",
                     shade: 0.8,
-                    area: ["760px", "650px"],
-                    content: './fundadd.html?projectId='+item.projectId,
+                    area: ["80%", "80%"],
+                    content: './report.html?sharesCode='+item.sharesCode,
                     end:function (){
                         index_model.getData()
                     }
