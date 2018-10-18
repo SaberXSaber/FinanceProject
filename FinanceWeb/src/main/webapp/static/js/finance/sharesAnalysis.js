@@ -186,7 +186,7 @@ var BaseJs = {};
                 },
                 exportData: function () {
                     window.open(config.path
-                        + 'project/export?limit=1000000&'
+                        + 'shares/exportReport?limit=1000000&'
                         + 'projectName=' + (this.projectName ? this.projectName : "")
                         + "&workCode=" + (this.workCode ? this.workCode : "")
                         + "&typeParent=" + (this.typeParent ? this.typeParent : "")
@@ -208,6 +208,27 @@ var BaseJs = {};
                         area: ["90%", "80%"],
                         content: './fundadd.html',
                         end:function (){
+                        }
+                    });
+                },
+                batchchart:function (){
+                    items = mmg.selectedRows()
+                    var sharesCodes = new Array
+                    if (items.length < 1) {
+                        layer.alert('请选择指定行');
+                        return
+                    }
+                    items.forEach(function (el) {
+                        sharesCodes.push(el.sharesCode)
+                    });
+                    layer.open({
+                        type: 2,
+                        title: "排行走势图",
+                        shade: [0.1, '#FFF'],
+                        area: ["90%", "90%"],
+                        content: './report.html?sharesCode='+sharesCodes,
+                        end: function () {
+                            //index_model.getData()
                         }
                     });
                 },
@@ -312,9 +333,9 @@ var BaseJs = {};
             if(ele.is('span[name="report"]')){
                 layer.open({
                     type: 2,
-                    title: "修改",
+                    title: "排行走势图",
                     shade: 0.8,
-                    area: ["80%", "80%"],
+                    area: ["90%", "90%"],
                     content: './report.html?sharesCode='+item.sharesCode,
                     end:function (){
                         index_model.getData()

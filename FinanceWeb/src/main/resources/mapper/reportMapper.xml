@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gsb.finance.dao.ReportDao">
     <select id="getDateList" resultType="java.lang.String">
-        SELECT  recordtime from sharesreport GROUP BY recordtime
+        SELECT  recordtime from sharesreport GROUP BY recordtime ORDER BY recordtime ASC
     </select>
 
     <select id="getDataList" resultType="java.lang.Integer" parameterType="com.gsb.finance.pojo.RepoertVO">
        SELECT IFNULL(fundOwnedcount,0) as fundOwnedcount from
        (SELECT  recordtime from sharesreport GROUP BY recordtime) as a
-       LEFT JOIN (SELECT  fundOwnedcount,recordtime from sharesreport  WHERE sharesCode = #{VALUE }) as b  ON a.recordtime =b.recordtime
+       LEFT JOIN (SELECT  fundOwnedcount,recordtime from sharesreport  WHERE sharesCode = #{VALUE }) as b  ON a.recordtime =b.recordtime ORDER BY a.recordtime ASC
     </select>
 
 

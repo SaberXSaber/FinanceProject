@@ -1,6 +1,5 @@
 package com.gsb.finance.controller.finance;
 
-import com.alibaba.fastjson.JSONObject;
 import com.gsb.finance.pojo.*;
 import com.gsb.finance.service.SharesService;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +23,7 @@ import java.util.*;
  * User: guoshubo
  * Date: 2017/8/1
  * Time: 9:29
- * Description��
+ * Description
  */
 
 @Controller
@@ -86,7 +85,6 @@ public class SharesController {
 
     @RequestMapping("/exportReport")
     public ModelAndView exportReport(BuyCondition buyCondition,Model model) {
-
         List<SharesAnalysisVO> exportReportList=sharesServiceImpl.exportReport(buyCondition);
 
         List<String> columns = new ArrayList<String>();
@@ -109,7 +107,7 @@ public class SharesController {
         }
         StringBuilder fileName =new StringBuilder();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-        fileName.append("分析表");
+        fileName.append("排行榜");
         fileName.append(sdf.format(new Date()));
         model.addAttribute("fileName", fileName);
         model.addAttribute("columnDatas", dataList);

@@ -9,7 +9,10 @@ var BaseJs = {};
 
 
     var ReportView = function(){
-        var sharesCode= utool.search.getSearch("sharesCode");
+     /*   var sharesCode= utool.search.getSearch("sharesCode");
+        var sharesCodes= utool.search.getSearch("sharesCodes");*/
+        var sharesCodeArr= utool.search.getSearch("sharesCode").split(",");
+
         var index_model = new Vue({
             el : '#pageinit',
             data : {
@@ -23,10 +26,10 @@ var BaseJs = {};
             methods : {
 
                 getData: function () {
-                    var sharesCodeArr= new Array;
+                   /* var sharesCodeArr= new Array;
                     if(sharesCode&&sharesCode!=''){
                         sharesCodeArr.push(sharesCode)
-                    }
+                    }*/
 
                     //sharesCodeArr.push(sharesCode)
                     /*sharesCodeArr.push('601088')
